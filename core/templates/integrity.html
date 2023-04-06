@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="header">
+База даних шлязів реалізації загроз Адвокатського Б'юро
+</div>
+<div class="dropdown">
+	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+	  Вибір бази даних
+	</button>
+	<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+		<li><a class="dropdown-item" href="http://127.0.0.1:8000/">Bci</a></li>
+		<li><hr class="dropdown-divider"></li>
+		<li><a class="dropdown-item" href="http://127.0.0.1:8000/integrity/">Цілісність</a></li>
+		<li><hr class="dropdown-divider"></li>
+		<li><a class="dropdown-item" href="http://127.0.0.1:8000/accessibility/">Доступність</a></li>
+		<li><hr class="dropdown-divider"></li>
+		<li><a class="dropdown-item" href="http://127.0.0.1:8000/privacy/">Конфіденційність</a></li>
+	</ul>
+  </div>
+<div>
+<form method="GET" action="{% url 'integrity' %}">
+	<input type="text" name="q" class="form-control" placeholder="Пошук" value="">
+	<button type="submit">Пошук</button>
+</form> 
+</div>
+
+<table id="mytable">
+	<thead>
+	  <tr>
+		<th>Назва інформаційного активу</th>
+		<th>Власник активу</th>
+		<th>Місце розташування</th>
+		<th>Категорія активу </th>
+		<th>Загроза</th>
+		<th>Ризик</th>
+		<th>Джерело загрози</th>
+		<th>Механізм реалізації загрози</th>
+		<th>Порушення інформаційних активів компанії</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for table in tables %}
+	  <tr>
+		<td>{{ table.name}}</td>
+		<td>{{ table.owner}}</td>
+		<td>{{ table.place}}</td>
+		<td>{{ table.asset_category}}</td>
+		<td>{{ table.threat}}</td>
+		<td>{{ table.risk}}</td>
+		<td>{{ table.source_of_threat}}</td>
+		<td>{{ table.mechanism}}</td>
+		<td>{{ table.table_category.name }}</td>
+	  </tr>
+	  {% endfor %}
+	</tbody>
+  </table>
+
+{% endblock %}
